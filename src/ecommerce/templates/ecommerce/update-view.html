@@ -1,0 +1,9 @@
+<h1>
+    Actualización del producto {{form.instance.title}}
+</h1>
+{{form.instance.title}}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Actualizar</button>
+</form>

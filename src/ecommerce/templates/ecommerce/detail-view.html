@@ -1,0 +1,27 @@
+{% include "ecommerce/messages.html" %}
+
+<h1>{{ product.title }}</h1>
+
+<p><strong>Precio:</strong> ${{ product.price }}</p>
+
+{% if product.description %}
+    <p><strong>Descripción:</strong> {{ product.description }}</p>
+{% endif %}
+
+{% if product.seller %}
+    <p><strong>Vendedor:</strong> {{ product.seller }}</p>
+{% endif %}
+
+{% if product.color %}
+    <p><strong>Color:</strong> {{ product.color }}</p>
+{% endif %}
+
+{% if product.dimensions %}
+    <p><strong>Dimensiones:</strong> {{ product.dimensions }}</p>
+{% endif %}
+
+<hr>
+
+<a href="{% url 'update' product.id %}">Editar</a> |
+<a href="{% url 'delete' product.id %}">Eliminar</a> |
+<a href="{% url 'list' %}">Volver al listado</a>

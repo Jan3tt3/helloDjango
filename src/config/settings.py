@@ -15,6 +15,7 @@ import socket
 import sys
 from pathlib import Path
 
+
 from distutils.util import strtobool
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
@@ -36,6 +37,8 @@ ALLOWED_HOSTS = list(map(str.strip, allowed_hosts.split(",")))
 # Application definitions
 INSTALLED_APPS = [
     "pages.apps.PagesConfig",
+    "ecommerce.apps.EcommerceConfig",
+    "base.apps.BaseConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

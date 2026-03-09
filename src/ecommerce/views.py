@@ -6,7 +6,22 @@ from .models import ProductModel
 from django.shortcuts import get_object_or_404
 from .forms import ProductModelForm
 from django.db.models import Q
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.base import RedirectView
 
+#Views class
+class ProtectedListView(LoginRequiredMixin, ListView):
+    model = ProductModel
+    template_name = "ecommerce/products/my_products.html"
+    context_object_name = "products"
+
+    def get_queryset(self):
+        return ProductModel.objects.filter(seller=self.request.user)
+
+
+class MyProductsRedirectView(RedirectView):
+    pattern_name = "my-products"
 
 # Create your views here.
 #DELETE
@@ -39,17 +54,17 @@ def product_model_update_view(request, product_id=None):
 
 #CREATE
 def product_model_create_view(request):
-    form=ProductModelForm(request.POST or None)
+    form = ProductModelForm(request.POST or None)
+
     if form.is_valid():
-        instance=form.save()
+        instance = form.save(commit=False)
+        instance.seller = request.user
         instance.save()
+
         messages.success(request, "Producto creado con éxito")
         return redirect("detail", product_id=instance.id)
-    context={
-        "form":form
-    }
-    template="ecommerce/create-view.html"
-    return render(request, template, context)
+
+    return render(request, "ecommerce/create-view.html", {"form": form})
 
 #DETAIL
 def product_model_detail_view(request, product_id):

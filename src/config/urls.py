@@ -24,6 +24,7 @@ urlpatterns = [
     path("", include("pages.urls")),
     path("admin/", admin.site.urls),
     path("ecommerce/", include("ecommerce.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 if not settings.TESTING:
     urlpatterns = [
